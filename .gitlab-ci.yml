@@ -1,0 +1,27 @@
+image: maven:3.8.1-openjdk-17-slim
+
+stages:
+  - build
+  - test
+  - deploy
+
+variables:
+  SPRING_PROFILES_ACTIVE: gitlab
+
+build:
+  stage: build
+  script:
+    - mvn clean package -DskipTests=true
+  artifacts:
+    paths:
+      - backend/*.jar
+
+test:
+  stage: test
+  script:
+    - mvn test
+
+deploy:
+  stage: deploy
+  script:
+    - echo "Deploying application..."
