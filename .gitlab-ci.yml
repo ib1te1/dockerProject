@@ -3,6 +3,7 @@ image: maven:3.8.1-openjdk-17-slim
 stages:
   - build
   - test
+  - package
   - deploy
 
 variables:
@@ -11,17 +12,27 @@ variables:
 build:
   stage: build
   script:
-    - mvn clean package -DskipTests=true
+    - mvn clean compile
   artifacts:
     paths:
-      - backend/*.jar
+      - target/*.jar
 
 test:
   stage: test
   script:
     - mvn test
 
+package:
+  stage: package
+  script:
+    - mvn package -DskipTests
+  artifacts:
+    paths:
+      - target/*.jar
+
 deploy:
   stage: deploy
   script:
-    - echo "Deploying application..."
+    - docker-compose up --build -d
+  only:
+    - master
