@@ -13,6 +13,8 @@ RUN npm install
 # Соберите приложение для продакшена
 RUN npm run build
 
+RUN ls -la dist
+
 FROM nginx:stable-alpine
 COPY --from=builder /app/dist /usr/share/nginx/html
 EXPOSE 80
