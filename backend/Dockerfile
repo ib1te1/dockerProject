@@ -1,5 +1,5 @@
 # Используйте официальный образ OpenJDK 11 как базовый
-FROM maven:3.8.7-openjdk-18-slim AS builder
+FROM maven:3.8.4-openjdk-17-slim AS builder
 
 # Установите рабочую директорию в контейнере
 WORKDIR /app
